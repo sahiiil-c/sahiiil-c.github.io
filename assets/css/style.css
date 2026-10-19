@@ -1,5 +1,5 @@
 /* =========================================================
-   Sahil Gulab Chavan — Portfolio
+   Sahil Gulab Chavan — Portfolio v3
    Colours live in the variables below; change them to re-theme.
    ========================================================= */
 :root {
@@ -221,7 +221,7 @@ body.has-cursor .cursor-dot, body.has-cursor .cursor-ring { opacity: 1; }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
 .stat { padding: 1.3rem 1rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); }
 .stat-num { display: block; font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; line-height: 1; }
-.stat-num::after { content: "+"; color: var(--pink); }
+.stat-num .suffix { color: var(--pink); }
 .stat-label { font-size: 0.85rem; color: var(--muted); }
 
 /* ---------- Skills ---------- */
@@ -233,23 +233,28 @@ body.has-cursor .cursor-dot, body.has-cursor .cursor-ring { opacity: 1; }
 }
 .tab:hover, .filter:hover { border-color: var(--pink); }
 .tab[aria-selected="true"], .filter.active { background: var(--text); color: var(--bg); border-color: var(--text); }
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; min-height: 200px; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.2rem; min-height: 200px; align-content: start; }
 .skill-card {
-  padding: 1.6rem 1rem; border-radius: var(--radius);
+  position: relative; overflow: hidden;
+  padding: 1.5rem; border-radius: var(--radius);
   background: var(--surface); border: 1px solid var(--border);
-  display: grid; justify-items: center; gap: 0.8rem; text-align: center;
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0 1rem;
   animation: pop 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   transition: transform 0.3s, border-color 0.3s;
 }
+.skill-card::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--gradient); transition: width 0.4s; }
 .skill-card:hover { transform: translateY(-6px); border-color: var(--pink); }
+.skill-card:hover::after { width: 100%; }
 @keyframes pop { from { opacity: 0; transform: translateY(20px) scale(0.95); } }
-.ring { position: relative; width: 104px; height: 104px; }
-.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-.ring circle { fill: none; stroke-width: 8; }
-.ring .track { stroke: var(--surface-2); }
-.ring .value { stroke: url(#ringGradient); stroke-linecap: round; transition: stroke-dashoffset 1.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.ring b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.4rem; }
-.skill-card h3 { font-size: 1rem; font-weight: 600; }
+.skill-icon {
+  grid-row: span 2;
+  width: 52px; height: 52px; border-radius: 16px;
+  display: grid; place-items: center;
+  background: var(--gradient); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.1rem;
+}
+.skill-card h3 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; }
+.skill-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
 
 /* ---------- Projects ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
@@ -278,7 +283,7 @@ body.has-cursor .cursor-dot, body.has-cursor .cursor-ring { opacity: 1; }
 .tags span { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
 
 /* ---------- GitHub repos ---------- */
-.repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+.repos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 1.2rem; }
 .repo-card {
   display: flex; flex-direction: column; gap: 0.6rem;
   padding: 1.5rem; border-radius: var(--radius);
@@ -297,6 +302,12 @@ a.repo-card:hover { transform: translateY(-5px); border-color: var(--pink); }
 @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
 .repos-message { grid-column: 1 / -1; padding: 2rem; border-radius: var(--radius); border: 1px dashed var(--border); text-align: center; color: var(--muted); }
 .repos-message code { font-family: var(--font-mono); color: var(--pink); }
+.repo-head { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+.repo-head svg { width: 22px; height: 22px; flex-shrink: 0; fill: none; stroke: var(--pink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.repo-badge { font-family: var(--font-mono); font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 999px; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
+.repos-all { display: inline-flex; gap: 0.5rem; margin-top: 2rem; font-weight: 600; border-bottom: 2px solid var(--pink); padding-bottom: 2px; }
+.repos-all span { transition: transform 0.25s; }
+.repos-all:hover span { transform: translateX(5px); }
 
 /* ---------- Timeline ---------- */
 .timeline { position: relative; max-width: 820px; padding-left: 3rem; }
@@ -313,28 +324,55 @@ a.repo-card:hover { transform: translateY(-5px); border-color: var(--pink); }
 
 /* ---------- Certificates ---------- */
 .certs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.4rem; }
-.cert-card { text-align: left; border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--border); transition: transform 0.3s, border-color 0.3s; }
+.cert-card {
+  position: relative; display: flex; flex-direction: column; gap: 1rem;
+  text-align: left; padding: 1.6rem; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--border);
+  transition: transform 0.3s, border-color 0.3s;
+}
 .cert-card:hover { transform: translateY(-6px) rotate(-1deg); border-color: var(--pink); }
-.cert-card img { aspect-ratio: 10 / 7; width: 100%; object-fit: cover; }
-.cert-info { padding: 1rem 1.2rem 1.2rem; }
-.cert-info h3 { font-size: 1rem; font-weight: 600; }
+.cert-card img { aspect-ratio: 10 / 7; width: 100%; object-fit: cover; border-radius: 12px; }
+.cert-mark {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: grid; place-items: center;
+  background: var(--gradient); color: #fff;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
+}
+.cert-info { display: grid; gap: 0.2rem; flex: 1; }
+.cert-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
 .cert-info span { color: var(--muted); }
+.cert-status { position: absolute; top: 1.2rem; right: 1.2rem; font-family: var(--font-mono); font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: rgba(34, 197, 94, 0.14); color: var(--success); }
+.cert-status.progress { background: rgba(245, 158, 11, 0.16); color: var(--orange); }
+.cert-action { font-weight: 600; font-size: 0.9rem; color: var(--pink); }
+.cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; }
+.cert-btn { padding: 0.5rem 1rem; border-radius: 999px; border: none; background: var(--gradient); color: #fff; font-weight: 600; font-size: 0.85rem; transition: transform 0.2s, box-shadow 0.2s; }
+.cert-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(236, 72, 153, 0.35); }
+.cert-link { font-weight: 600; font-size: 0.88rem; color: var(--pink); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.cert-link:hover { border-color: var(--pink); }
 
-/* ---------- Testimonials ---------- */
-.slider { max-width: 900px; }
-.slider-viewport { overflow: hidden; border-radius: 28px; touch-action: pan-y; }
-.slider-track { display: flex; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
-.slide { flex: 0 0 100%; padding: clamp(2rem, 5vw, 3.5rem); background: var(--surface); border: 1px solid var(--border); border-radius: 28px; }
-.slide blockquote { font-family: var(--font-display); font-size: clamp(1.25rem, 2.6vw, 1.8rem); line-height: 1.4; letter-spacing: -0.01em; }
-.slide blockquote::before { content: "“"; display: block; font-size: 5rem; line-height: 0.6; margin-bottom: 0.5rem; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.slide-author { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; }
-.slide-avatar { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--gradient); color: #fff; font-weight: 700; }
-.slide-author strong { display: block; }
-.slide-author span { color: var(--muted); font-size: 0.9rem; }
-.slider-controls { display: flex; align-items: center; gap: 1rem; margin-top: 1.6rem; }
-.slider-dots { display: flex; gap: 0.5rem; }
-.slider-dots button { width: 10px; height: 10px; border-radius: 999px; border: none; background: var(--border); transition: width 0.3s, background 0.3s; }
-.slider-dots button[aria-current="true"] { width: 32px; background: var(--pink); }
+/* ---------- Resume gate ---------- */
+.gate-panel { width: min(480px, 100%); }
+.gate-text { color: var(--muted); margin-bottom: 1.4rem; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.hold-btn {
+  position: relative; overflow: hidden; width: 100%;
+  padding: 1.1rem 1.4rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface-2);
+  font-weight: 600; font-size: 1rem;
+  user-select: none; -webkit-user-select: none; touch-action: none; -webkit-touch-callout: none;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.hold-btn:hover { border-color: var(--pink); }
+.hold-btn.holding { transform: scale(0.98); }
+.hold-btn:disabled { cursor: progress; opacity: 0.85; }
+.hold-fill { position: absolute; inset: 0; background: var(--gradient); transform: scaleX(0); transform-origin: 0 50%; }
+.hold-label { position: relative; }
+.hold-btn.holding .hold-label, .hold-btn:disabled .hold-label { color: #fff; }
+.gate-fallback { margin-top: 1.2rem; padding: 1rem 1.2rem; border-radius: 14px; background: var(--surface); border: 1px dashed var(--border); color: var(--muted); }
+.gate-fallback a { color: var(--pink); font-weight: 600; }
+
+/* Images: no drag / text-select (cosmetic deterrent) */
+img, .photo-frame, .lightbox figure { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 5vw, 4rem); }
@@ -411,7 +449,7 @@ a.repo-card:hover { transform: translateY(-5px); border-color: var(--pink); }
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; }
-  .about-photo { max-width: 380px; }
+  .about-photo { max-width: 300px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -433,8 +471,7 @@ a.repo-card:hover { transform: translateY(-5px); border-color: var(--pink); }
 @media (max-width: 560px) {
   :root { --nav-h: 64px; }
   .projects-grid, .repos-grid { grid-template-columns: 1fr; }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .ring { width: 84px; height: 84px; }
+  .skills-grid { grid-template-columns: 1fr; }
   .stat-num { font-size: 2rem; }
   .timeline { padding-left: 2rem; }
   .tl-item { padding: 1.3rem; }

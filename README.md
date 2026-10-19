@@ -1,21 +1,16 @@
-# Sahil Gulab Chavan — Portfolio
+# Sahil Gulab Chavan — Portfolio (v3)
 
-A personal portfolio website for **Sahil Gulab Chavan**, Data Analyst and Machine Learning enthusiast.
-It is built with plain **HTML, CSS and JavaScript**: no frameworks, no build step and no installation.
+Personal portfolio of **Sahil Gulab Chavan**: Data Scientist Intern and B.Tech AI & ML student at Dilkap Research Institute.
+It is built with plain **HTML, CSS and JavaScript**: no frameworks, no build step and nothing to install.
 
-## Features
+## What's new in v3
 
-- **Bold, modern design:** oversized typography, vivid gradients, a dark theme and an optional light theme that the browser remembers
-- **Animated hero:** an interactive neural-network canvas that reacts to the mouse, and a role line that types itself out
-- **Skills:** tabbed categories with animated proficiency rings
-- **Projects:** category filter and 3D tilt cards. Each card opens a **case-study pop-up** with the problem, approach, results and metrics.
-- **Live GitHub repos:** fetched from the GitHub API, with a loading skeleton and a fallback message
-- **Journey timeline:** the line fills in as you scroll
-- **Certificates gallery:** opens in a full-screen lightbox with keyboard arrow support
-- **Testimonials slider:** auto-plays, with previous/next buttons, dots and swipe on phones
-- **Contact form:** live validation and toast messages. Sending opens the visitor's email app. Also includes a "copy email" button.
-- **Extras:** preloader, scroll-progress bar, custom cursor, magnetic buttons, scroll-reveal animations and a back-to-top button
-- **Responsive and accessible:** works on phones, supports keyboard navigation, traps focus inside pop-ups, and respects the "reduce motion" setting
+- **Anti-scraping protection** for the resume, email and images. Details are in the [Privacy & anti-scraping](#privacy--anti-scraping) section below.
+- **Real certificates:**
+  - each one links to its official verification page (Forage/Deloitte, Scaler, Credly, Kaggle)
+  - the Scaler certificate and the Google badge open full screen on click
+- The "Certifications earned" number updates automatically from the certificate list.
+- A profile photo can now be set with one constant (`PROFILE_PHOTO`).
 
 ## Folder structure
 
@@ -23,58 +18,127 @@ It is built with plain **HTML, CSS and JavaScript**: no frameworks, no build ste
 .
 ├── index.html            # Page layout and static text
 ├── README.md
+├── robots.txt            # Tells search engines / AI crawlers what to stay out of
 └── assets/
     ├── css/style.css     # All styles (colours are CSS variables at the top)
-    ├── js/main.js        # All behaviour + editable content (projects, skills, etc.)
-    ├── images/           # Favicon, project thumbnails, certificate images, profile photo
-    └── resume/           # Put resume.pdf here
+    ├── js/main.js        # All behaviour + editable content (CONTENT section at the top)
+    ├── images/           # Favicon, project thumbnails
+    │   └── certs/        # Certificate images (random file names on purpose)
+    └── resume/           # Your phone-free resume goes here (see below)
 ```
 
-## Run it locally
+Private files are kept **outside** this folder in `Website/private/` so they can never be deployed by accident:
+- `Sahil_Chavan_Resume_Harvard.pdf`: the original resume, which includes your phone number
+- `certificates.txt`: your list of certificate links
 
-- **Easiest:** double-click `index.html` to open it in a browser.
-- **Recommended:** open the folder in VS Code and use the **Live Server** extension
-  (right-click `index.html` → *Open with Live Server*).
+## ⚠️ Before you deploy: add the phone-free resume
+
+The site deliberately ships **without** a resume file. Export your resume without the phone number and save it as:
+
+```
+assets/resume/301b49834b7ae9774455.pdf
+```
+
+The odd name is on purpose: it makes the URL impossible to guess. Visitors still download it as `Sahil_Chavan_Resume.pdf`.
+Until the file is there, the download dialog says the resume isn't available and points to LinkedIn and email.
+
+## Check it locally
+
+The resume download uses `fetch()`, which browsers block on `file://`. So test it over a local server:
+
+- **VS Code:** right-click `index.html` and choose **Open with Live Server**, or
+- **Terminal** (from this folder): `python -m http.server 8000`, then open <http://localhost:8000>.
+
+Things to check:
+- **Download Resume:** a "Quick check" dialog opens. Press and hold the button until it fills, and the resume downloads. Try it with the keyboard too: Tab to the button, then hold Space.
+- **Email:** it appears in the hero icon and the contact card, and the copy button works.
+- **Certificates:** "View certificate" opens the image full screen; "Verify ↗" / "View certificate ↗" opens the issuer's page.
+- **Projects and repos:** the project pop-ups and the featured repos still work, and dark and light mode both look right.
+- **Phone width:** the ☰ menu works and nothing scrolls sideways.
+
+## Privacy & anti-scraping
+
+| What | How it's protected |
+| --- | --- |
+| **Resume** | No link to the file anywhere in the HTML. It downloads only after a human presses and holds a button for 1.2 s. The download is refused if the click was synthetic (`isTrusted`), came within 2 s of the page loading, or a hidden "honeypot" field was filled (bots fill every field). The file path is built in JavaScript at click time, and the file name is random. |
+| **Email** | Not written anywhere in the HTML. `main.js` stores it as two parts (`EMAIL_PARTS`) with no `@`, and joins them when the page runs. Email-harvesting bots look for `name@domain` patterns and find nothing. |
+| **Certificate images** | Not in the page at all until a visitor clicks "View certificate". Stored with random file names. |
+| **All images** | `noimageindex, noarchive` keeps them out of Google Images and cached copies. `robots.txt` asks crawlers to skip `/assets/resume/` and `/assets/images/`, and blocks AI-training crawlers completely. Right-click save and dragging are disabled on images (cosmetic). |
+
+**Honest limits:**
+- These measures stop generic scrapers, email harvesters, search engines and AI crawlers, which covers nearly all automated traffic.
+- A person, or a bot written specifically for your site that drives a real browser, can still get anything a visitor can see. That is true of every public website without a login.
+- `robots.txt` only works when the site is at the root of a domain (e.g. `something.netlify.app/robots.txt`). On a GitHub *project* page (`sahiiil-c.github.io/portfolio/`) crawlers won't read it. The meta tag and the other protections still apply.
+- **GitHub Pages caveat:**
+  - GitHub Pages serves the site from a **public repository**, so anyone can browse `assets/resume/` and `assets/images/certs/` on github.com, and GitHub itself gets scraped.
+  - If that matters to you, deploy with **Netlify Drop** (below), where there is no public repo.
+  - Or keep the resume out of the repo and only add it on Netlify.
 
 ## Customise
 
-Most content is in the **CONTENT** section at the top of `assets/js/main.js`:
+Everything in this table is at the top of `assets/js/main.js`:
 
-| What | Where |
+| What | Constant |
 | --- | --- |
-| Typing roles | `ROLES` |
-| Scrolling tool band | `MARQUEE_ITEMS` |
-| Skills and percentages | `SKILLS` |
-| Projects (with pop-up details and metrics) | `PROJECTS` |
-| Certificates | `CERTIFICATES` (put the images in `assets/images/`) |
-| Testimonials | `TESTIMONIALS` |
-| GitHub repos section | `GITHUB_USERNAME` (e.g. `"sahilchavan"`) |
-| Email used by the contact form | `CONTACT_EMAIL` |
+| Featured GitHub repos (which ones + order + optional custom description) | `FEATURED_REPOS` |
+| GitHub username | `GITHUB_USERNAME` |
+| Email (two parts: before and after the @) | `EMAIL_PARTS` |
+| Resume file name (without `.pdf`) / name visitors get | `RESUME_KEY` / `RESUME_DOWNLOAD_NAME` |
+| Profile photo | `PROFILE_PHOTO` (e.g. `"assets/images/profile.jpg"`) |
+| Typing roles in the hero | `ROLES` |
+| Scrolling skills band | `MARQUEE_ITEMS` |
+| Skill tabs and cards | `SKILLS` |
+| Projects (cards + pop-up case studies) | `PROJECTS` (set `demo` to a live Streamlit URL to show a "Live demo" button) |
+| Certificates | `CERTIFICATES` |
 
-In `index.html`, update:
+### Certificates
 
-1. **Profile photo:** add `assets/images/profile.jpg`, then replace
-   `<div class="photo-placeholder">SC</div>` with
-   `<img src="assets/images/profile.jpg" alt="Sahil Gulab Chavan" />`.
-2. **Resume:** add `assets/resume/resume.pdf` so the "Download CV" button works.
-3. **Social links:** the GitHub, LinkedIn, Kaggle and email links in the hero.
-4. **About text and stats:** the bio paragraphs and the `data-target` numbers.
-5. **Journey:** the company, college, dates and bullet points.
-6. **Contact details:** email, phone and location.
+```js
+{ title: "Pandas", issuer: "Kaggle", status: "Completed",
+  url: "https://www.kaggle.com/learn/certification/sahiiilc/pandas",   // official verification page
+  image: "" }                                                         // optional image
+```
 
-**Colours:** change `--violet`, `--pink` and `--orange` at the top of `assets/css/style.css`.
+- `url` is shown as **"Verify ↗"**, or as **"View certificate ↗"** when there is no image.
+- `image` adds a **"View certificate"** button that opens it full screen.
+- **To add an image:**
+  - Kaggle pages are behind a CAPTCHA, so take a screenshot of the certificate yourself.
+  - Save it in `assets/images/certs/` with a random name, e.g. `a8f3c19e2d.png`.
+  - Set `image: "assets/images/certs/a8f3c19e2d.png"`.
+- Set `status: "In progress"` for unfinished courses. They show an orange badge and aren't counted in the "Certifications earned" stat.
 
-> All names, companies, dates, metrics and testimonials are **placeholders**. Replace them with real information before publishing.
+### Feature a different GitHub repo
 
-## Deploy (free)
+```js
+const FEATURED_REPOS = [
+  { name: "Firebase-Manager", description: "Optional text shown instead of GitHub's description" },
+  { name: "Streamlit-apps" },   // no description → GitHub's description is used
+];
+```
 
-- **GitHub Pages:** push this folder to a repository, then go to *Settings → Pages → Deploy from branch* → `main` / root.
-- **Netlify:** drag and drop this folder at <https://app.netlify.com/drop>.
-- **Vercel:** import the repository. No build settings are needed.
+The repo `name` must match the name on GitHub (case doesn't matter). The site makes **one** GitHub API request per visit.
+
+## Deploy (when you're ready)
+
+**Netlify Drop (recommended for privacy):** drag this folder onto <https://app.netlify.com/drop>.
+There is no public repo, and `robots.txt` works because the site sits at the root of its domain.
+
+**GitHub Pages:** use your existing `sahiiil-c/portfolio` repo. Read the GitHub Pages caveat above first.
+1. Replace the repo's files with the contents of this folder.
+2. Commit and push:
+   ```bash
+   git add -A
+   git commit -m "Portfolio v3"
+   git push
+   ```
+3. In the repo, go to **Settings → Pages → Deploy from a branch**, choose `main` and `/ (root)`.
+   The site will be live at `https://sahiiil-c.github.io/portfolio/`.
+
+All asset paths are relative, so the site works from a sub-path like `/portfolio/` without changes.
 
 ## Tech
 
-HTML5 · CSS3 (Grid, Flexbox, custom properties, `color-mix`) · Vanilla JavaScript (IntersectionObserver, Canvas, Fetch API) · Google Fonts (Space Grotesk, Inter, JetBrains Mono)
+HTML5 · CSS3 (Grid, Flexbox, custom properties) · Vanilla JavaScript (IntersectionObserver, Canvas, Fetch API / GitHub REST API, Pointer Events) · Google Fonts (Space Grotesk, Inter, JetBrains Mono)
 
 ---
 

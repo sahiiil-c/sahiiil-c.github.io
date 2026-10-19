@@ -1,141 +1,147 @@
 /* =========================================================
-   Sahil Gulab Chavan — Portfolio scripts
+   Sahil Gulab Chavan — Portfolio v3 scripts
    Edit the CONTENT section to update the site. No build step needed.
    ========================================================= */
 
 /* ---------------------- CONTENT ---------------------- */
 
-// Your GitHub username. Leave empty ("") to show a friendly placeholder instead.
 const GITHUB_USERNAME = "sahiiil-c";
 
-const CONTACT_EMAIL = "sahil@example.com";
+// Repos shown in "Featured repositories", in this order. Only these are shown.
+// `name` must match the repo name on GitHub (case doesn't matter).
+// `description` is optional; when set it is shown instead of GitHub's description.
+const FEATURED_REPOS = [
+  {
+    name: "Firebase-Manager",
+    description: "Multi-role Firestore admin panel in Streamlit with Google OAuth 2.0, role-based access and full CRUD down to nested subcollections.",
+  },
+  {
+    name: "AI-Face-Attendance-System-Streamlit",
+    description: "Real-time OpenCV/LBPH face recognition that logs attendance automatically, with a live Streamlit dashboard.",
+  },
+  {
+    name: "Building-energy-anomaly-detection-ml",
+    description: "Isolation Forest, LOF and Elliptic Envelope on two years of hourly electricity data from 1,578 commercial buildings.",
+  },
+  {
+    name: "Evoastra-ventures-Data-scraping",
+    description: "Python data-scraping work from my Data Scientist internship at Evoastra Ventures.",
+  },
+];
 
-const ROLES = ["Data Analyst", "Machine Learning Engineer", "AI Enthusiast", "Data Storyteller"];
+// Email is stored in two parts so email-harvesting bots can't find it in the source.
+const EMAIL_PARTS = ["chavansahil2300", "gmail.com"];
 
-const MARQUEE_ITEMS = ["Python", "Machine Learning", "SQL", "Deep Learning", "Power BI", "NLP", "Pandas", "Data Visualisation", "TensorFlow", "Statistics"];
+// Resume: save the PDF as assets/resume/<RESUME_KEY>.pdf (see README). It is only
+// downloadable through the "Quick check" dialog, never linked directly from the page.
+const RESUME_KEY = "301b49834b7ae9774455";
+const RESUME_DOWNLOAD_NAME = "Sahil_Chavan_Resume";
+
+// Profile photo, e.g. "assets/images/profile.jpg". Leave "" to show the SC monogram.
+const PROFILE_PHOTO = "";
+
+const ROLES = ["Data Scientist Intern", "AI & ML Engineer", "Python Developer", "Data Analyst"];
+
+const MARQUEE_ITEMS = ["Python", "Pandas", "Scikit-learn", "EDA", "Feature Engineering", "OpenCV", "Streamlit", "SQL", "Firebase", "NumPy", "Jupyter", "Git"];
 
 const SKILLS = {
   "Languages": [
-    { name: "Python", level: 90 },
-    { name: "SQL", level: 85 },
-    { name: "R", level: 60 },
-    { name: "HTML / CSS", level: 70 },
+    { name: "Python", note: "Pipelines, ML models and full-stack apps" },
+    { name: "SQL", note: "Querying and shaping structured data" },
+    { name: "HTML & CSS", note: "Web front-ends, including this site" },
   ],
-  "ML & AI": [
-    { name: "scikit-learn", level: 85 },
-    { name: "TensorFlow / Keras", level: 75 },
-    { name: "PyTorch", level: 65 },
-    { name: "NLP", level: 70 },
-    { name: "Computer Vision", level: 65 },
+  "Data & ML": [
+    { name: "Pandas", note: "Cleaning, imputation and feature engineering" },
+    { name: "NumPy", note: "Numerical computing" },
+    { name: "Scikit-learn", note: "Supervised models, anomaly detection, CV" },
+    { name: "OpenCV", note: "Real-time face detection & recognition" },
   ],
-  "Data & Viz": [
-    { name: "Pandas", level: 90 },
-    { name: "NumPy", level: 85 },
-    { name: "Power BI", level: 80 },
-    { name: "Tableau", level: 70 },
-    { name: "Matplotlib / Seaborn", level: 85 },
+  "Apps & Tools": [
+    { name: "Streamlit", note: "Interactive dashboards and deployed apps" },
+    { name: "Firebase / Firestore", note: "NoSQL data, OAuth 2.0, role-based access" },
+    { name: "Jupyter", note: "Reproducible, modular experiment workflows" },
+    { name: "Git", note: "Version control and open-source on GitHub" },
   ],
-  "Tools": [
-    { name: "Jupyter", level: 90 },
-    { name: "Git & GitHub", level: 80 },
-    { name: "Excel", level: 85 },
-    { name: "Docker", level: 55 },
-    { name: "Streamlit", level: 75 },
+  "Core": [
+    { name: "Data Cleaning & EDA", note: "Univariate, bivariate and correlation analysis" },
+    { name: "Feature Engineering", note: "Temporal, lag and rolling-window features" },
+    { name: "Supervised ML", note: "Training with cross-validation & feature selection" },
+    { name: "Model Evaluation", note: "Comparing models to pick what performs" },
+    { name: "Statistical Analysis", note: "Turning numbers into actionable insight" },
+    { name: "Role-Based Access Control", note: "Secure multi-role applications" },
   ],
 };
 
 const PROJECTS = [
   {
-    title: "Customer Churn Prediction",
-    category: "ML",
-    image: "assets/images/project-churn.svg",
-    summary: "Predicts which telecom customers are likely to leave so the retention team can act early.",
-    problem: "A telecom company was losing customers without warning and wanted to know who was at risk and why.",
-    approach: "Cleaned and encoded 7,000+ customer records, handled class imbalance with SMOTE, and compared Logistic Regression, Random Forest and XGBoost with cross-validation. Used SHAP values to explain the top churn drivers.",
-    results: "XGBoost reached the best recall on churners. Contract type, tenure and monthly charges were the strongest drivers, which shaped a targeted retention offer.",
-    metrics: [{ value: "86%", label: "Accuracy" }, { value: "0.91", label: "ROC‑AUC" }, { value: "7k+", label: "Customers" }],
-    tags: ["Python", "XGBoost", "SHAP", "scikit-learn"],
-    github: "https://github.com/",
+    title: "AI Face Recognition Attendance System",
+    category: "Computer Vision",
+    image: "assets/images/project-face-attendance.svg",
+    summary: "Real-time face recognition that logs attendance automatically, with a live Streamlit dashboard.",
+    problem: "Taking attendance by hand is slow and needs manual data entry for every person, every session.",
+    approach: "Built a real-time face detection and recognition pipeline with OpenCV and the LBPH face recognizer, and wrapped it in an interactive Streamlit dashboard.",
+    results: "Attendance is logged automatically with no manual data entry, and the dashboard gives live attendance monitoring plus access to historical records.",
+    metrics: [{ value: "Real‑time", label: "Detection & recognition" }, { value: "LBPH", label: "Face recognizer" }, { value: "Live", label: "Streamlit dashboard" }],
+    tags: ["Python", "OpenCV", "LBPH", "Streamlit"],
+    github: "https://github.com/sahiiil-c/AI-Face-Attendance-System-Streamlit",
     demo: "",
   },
   {
-    title: "Sales Performance Dashboard",
-    category: "Data Analysis",
-    image: "assets/images/project-sales.svg",
-    summary: "An interactive Power BI dashboard tracking revenue, regions and product performance.",
-    problem: "Management needed one place to see sales trends instead of reading dozens of spreadsheets every month.",
-    approach: "Combined raw sales data with SQL, built a star-schema data model, wrote DAX measures for YoY growth and margins, and designed drill-down pages by region and product.",
-    results: "Reporting time went from hours to minutes, and the dashboard exposed two under-performing regions.",
-    metrics: [{ value: "12", label: "KPIs tracked" }, { value: "4", label: "Report pages" }, { value: "−80%", label: "Reporting time" }],
-    tags: ["Power BI", "DAX", "SQL", "Excel"],
-    github: "https://github.com/",
+    title: "Firebase Database Manager",
+    category: "Full‑stack",
+    image: "assets/images/project-firebase-manager.svg",
+    summary: "A multi-role admin panel to manage Firestore data safely, with Google OAuth 2.0 and role-based access.",
+    problem: "Managing Firestore collections, documents and nested subcollections directly is error-prone, and different users (Admins and Clients) need different levels of access.",
+    approach: "Architected a full-stack Streamlit + Firestore web app with Google OAuth 2.0 sign-in and role-based access control. Implemented full CRUD across collections, documents and nested subcollections with type-safe casting for strings, ints, floats, booleans and lists. Used Firestore ArrayUnion/ArrayRemove for safe list edits and session-state handling to block duplicate form submissions.",
+    results: "A safe admin tool that prevents accidental overwrites and duplicate submissions, fully documented and open-sourced on GitHub under the MIT License.",
+    metrics: [{ value: "2", label: "User roles (Admin / Client)" }, { value: "Full CRUD", label: "Down to subcollections" }, { value: "OAuth 2.0", label: "Google sign-in" }, { value: "MIT", label: "Open source" }],
+    tags: ["Python", "Streamlit", "Firestore", "OAuth 2.0", "RBAC"],
+    github: "https://github.com/sahiiil-c/Firebase-Manager",
     demo: "",
   },
   {
-    title: "Sentiment Analysis of Reviews",
-    category: "NLP",
-    image: "assets/images/project-sentiment.svg",
-    summary: "Classifies product reviews as positive, negative or neutral using NLP.",
-    problem: "An e-commerce store received thousands of reviews and could not read them all to find out what customers disliked.",
-    approach: "Pre-processed text (tokenising, stop-words, lemmatising), compared TF-IDF + Logistic Regression with a fine-tuned DistilBERT model, and served the model in a Streamlit app.",
-    results: "The transformer model clearly beat the classical baseline, and the app lets anyone paste a review and get a prediction instantly.",
-    metrics: [{ value: "92%", label: "F1 score" }, { value: "50k", label: "Reviews" }, { value: "3", label: "Classes" }],
-    tags: ["NLP", "Transformers", "NLTK", "Streamlit"],
-    github: "https://github.com/",
-    demo: "",
-  },
-  {
-    title: "House Price Prediction",
-    category: "ML",
-    image: "assets/images/project-house.svg",
-    summary: "Regression model estimating property prices from location and features.",
-    problem: "Buyers and sellers needed a fair, data-backed estimate of a property's price.",
-    approach: "Ran exploratory analysis, engineered features (price per sq. ft, age, location encoding), removed outliers, and tuned Ridge, Lasso and Gradient Boosting models.",
-    results: "Gradient Boosting gave the lowest error and the most important features were clearly explained to users.",
-    metrics: [{ value: "0.89", label: "R² score" }, { value: "80+", label: "Features" }, { value: "−18%", label: "RMSE vs baseline" }],
-    tags: ["Regression", "Feature Engineering", "Pandas"],
-    github: "https://github.com/",
-    demo: "",
-  },
-  {
-    title: "Image Classifier with CNN",
-    category: "Vision",
-    image: "assets/images/project-cnn.svg",
-    summary: "A convolutional neural network that recognises objects in images.",
-    problem: "Build a model that can reliably sort images into categories with limited training data.",
-    approach: "Built a CNN in TensorFlow/Keras, used data augmentation and transfer learning (MobileNetV2), and tracked training with learning curves to avoid over-fitting.",
-    results: "Transfer learning greatly improved accuracy over the from-scratch model while training in a fraction of the time.",
-    metrics: [{ value: "94%", label: "Test accuracy" }, { value: "10", label: "Classes" }, { value: "60k", label: "Images" }],
-    tags: ["TensorFlow", "CNN", "Transfer Learning"],
-    github: "https://github.com/",
-    demo: "",
-  },
-  {
-    title: "COVID‑19 Exploratory Analysis",
-    category: "Data Analysis",
-    image: "assets/images/project-covid.svg",
-    summary: "Explored global COVID‑19 data to compare waves, vaccination and recovery trends.",
-    problem: "Understand how case waves and vaccination rates differed across countries and over time.",
-    approach: "Cleaned public time-series data, computed rolling averages and per-capita rates, and visualised the results with interactive Plotly charts.",
-    results: "Showed a clear link between vaccination coverage and lower peak mortality in later waves.",
-    metrics: [{ value: "190+", label: "Countries" }, { value: "3 yrs", label: "Time-series" }, { value: "15", label: "Charts" }],
-    tags: ["EDA", "Plotly", "Pandas", "Time Series"],
-    github: "https://github.com/",
+    title: "Building Energy Anomaly Detection",
+    category: "Machine Learning",
+    image: "assets/images/project-energy-anomaly.svg",
+    summary: "Group project at Evoastra Ventures: finding unusual electricity use across 1,578 commercial buildings.",
+    problem: "Spot abnormal electricity consumption in two years (2016–2017) of hourly data from 1,578 commercial buildings in the Building Data Genome Project 2 dataset.",
+    approach: "Cleaned and forward-filled 1,312,095 missing values while keeping the time series continuous. Engineered temporal features (hour of day, day of week, weekend flag, 1-hour and 24-hour lags, 24-hour rolling mean and std). Built and compared three unsupervised models (Isolation Forest, Local Outlier Factor and Elliptic Envelope) at 1% contamination.",
+    results: "Isolation Forest flagged 175 anomalies, giving a clear shortlist of unusual consumption events to investigate.",
+    metrics: [{ value: "1,578", label: "Buildings" }, { value: "17,544", label: "Hourly timestamps" }, { value: "1.31M", label: "Missing values filled" }, { value: "175", label: "Anomalies flagged" }],
+    tags: ["Python", "Pandas", "Scikit-learn", "Isolation Forest", "Time Series"],
+    github: "https://github.com/sahiiil-c/Building-energy-anomaly-detection-ml",
     demo: "",
   },
 ];
 
+// `url` = official credential / verification page (opens in a new tab).
+// `image` = certificate image in assets/images/certs/ — it is loaded only when a visitor
+// clicks "View certificate", so scrapers reading the page never see it.
 const CERTIFICATES = [
-  { title: "Data Analytics Professional Certificate", issuer: "Issuer · 2024", image: "assets/images/cert-data-analytics.svg" },
-  { title: "Data Science Professional Certificate", issuer: "Issuer · 2024", image: "assets/images/cert-data-science.svg" },
-  { title: "Machine Learning Specialization", issuer: "Issuer · 2025", image: "assets/images/cert-machine-learning.svg" },
-  { title: "SQL for Data Science", issuer: "Issuer · 2023", image: "assets/images/cert-sql.svg" },
-];
-
-const TESTIMONIALS = [
-  { quote: "Sahil has a rare ability to explain complex models in simple words. His churn analysis directly shaped our retention plan.", name: "Mentor Name", role: "Senior Data Scientist, Company" },
-  { quote: "Hard-working, curious and reliable. Sahil delivered the dashboard ahead of schedule and kept improving it from feedback.", name: "Manager Name", role: "Team Lead, Internship" },
-  { quote: "One of the most dedicated students in the department. His final-year project stood out for its depth and clarity.", name: "Professor Name", role: "Faculty, College Name" },
+  {
+    title: "Data Analytics Job Simulation",
+    issuer: "Deloitte · Forage",
+    status: "Completed",
+    url: "https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_68da1684b544efd2ccb3b7de_1759129562114_completion_certificate.pdf",
+    image: "assets/images/certs/delloite.png",
+  },
+  {
+    title: "Designing Scalable RAG Pipelines",
+    issuer: "Scaler Masterclass",
+    status: "Completed",
+    url: "https://moonshot.scaler.com/s/sl/BY7aSQ6vSh",
+    image: "assets/images/certs/59fbbef8943bbb42.png",
+  },
+  {
+    title: "Google AI for App Building",
+    issuer: "Google · Coursera",
+    status: "Completed",
+    url: "https://www.credly.com/badges/6cb13941-a173-48c6-b295-848f06a1f0b9",
+    image: "assets/images/certs/1789917594839.jpg",
+  },
+  { title: "Pandas", issuer: "Kaggle", status: "Completed", url: "https://www.kaggle.com/learn/certification/sahiiilc/pandas", image: "assets/images/certs/pandas.jpg" },
+  { title: "Python", issuer: "Kaggle", status: "Completed", url: "https://www.kaggle.com/learn/certification/sahiiilc/python", image: "assets/images/certs/python.jpg" },
+  { title: "Python Bootcamp", issuer: "Udemy", status: "Completed", url: "", image: "" },
 ];
 
 /* ---------------------- HELPERS ---------------------- */
@@ -150,12 +156,18 @@ function el(tag, props = {}, children = []) {
   Object.entries(props).forEach(([key, value]) => {
     if (key === "class") node.className = value;
     else if (key === "text") node.textContent = value;
-    else if (key in node && typeof value !== "string") node[key] = value;
     else node.setAttribute(key, value);
   });
   children.forEach((child) => child && node.append(child));
   return node;
 }
+
+function svgIcon(paths) {
+  const span = el("span", { "aria-hidden": "true" });
+  span.innerHTML = `<svg viewBox="0 0 24 24">${paths}</svg>`; // static markup only
+  return span.firstChild;
+}
+const REPO_ICON = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5V21h16v-4"/>';
 
 let toastTimer;
 function toast(message, isError = false) {
@@ -249,7 +261,7 @@ function initNav() {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       $$("a", links).forEach((a) => a.classList.remove("active"));
-      const id = entry.target.id === "github" ? "projects" : entry.target.id === "testimonials" ? "certifications" : entry.target.id;
+      const id = entry.target.id === "github" ? "projects" : entry.target.id;
       navMap.get(id)?.classList.add("active");
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
@@ -398,14 +410,21 @@ function initMarquee() {
 
 /* ---------------------- REVEAL & COUNTERS ---------------------- */
 
+// <span class="stat-num" data-target="1.3" data-decimals="1" data-suffix="M">
 function animateCount(node) {
   const target = Number(node.dataset.target);
-  if (reduceMotion) { node.textContent = target; return; }
+  const decimals = Number(node.dataset.decimals || 0);
+  const suffix = el("span", { class: "suffix", text: node.dataset.suffix || "" });
+  const render = (value) => {
+    node.textContent = value.toLocaleString("en-IN", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    node.append(suffix);
+  };
+  if (reduceMotion) { render(target); return; }
   const start = performance.now();
   const duration = 1600;
   (function step(now) {
     const p = Math.min((now - start) / duration, 1);
-    node.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    render(target * (1 - Math.pow(1 - p, 3)));
     if (p < 1) requestAnimationFrame(step);
   })(start);
 }
@@ -423,48 +442,35 @@ function observeReveals(root = document) {
   $$(".reveal:not(.visible)", root).forEach((node) => revealObserver.observe(node));
 }
 
-/* ---------------------- SKILLS (tabs + rings) ---------------------- */
+/* ---------------------- SKILLS (tabs + cards) ---------------------- */
 
 function initSkills() {
   const tabs = $("#skillTabs");
   const grid = $("#skillsGrid");
-  const CIRC = 2 * Math.PI * 44;
+  const groups = Object.keys(SKILLS);
 
-  // Shared gradient definition used by every ring.
-  document.body.append(el("div", { "aria-hidden": "true", style: "position:absolute;width:0;height:0;overflow:hidden" }));
-  document.body.lastChild.innerHTML =
-    '<svg width="0" height="0"><defs><linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">' +
-    '<stop offset="0" stop-color="#7c3aed"/><stop offset=".55" stop-color="#ec4899"/><stop offset="1" stop-color="#f59e0b"/>' +
-    "</linearGradient></defs></svg>";
+  const initials = (name) => name.replace(/[^A-Za-z0-9 ]/g, " ").split(/\s+/).filter(Boolean).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 
   function show(group) {
     $$(".tab", tabs).forEach((t) => t.setAttribute("aria-selected", String(t.dataset.group === group)));
-    grid.replaceChildren();
-    SKILLS[group].forEach((skill, i) => {
-      const card = el("div", { class: "skill-card", style: `animation-delay:${i * 70}ms` });
-      card.innerHTML =
-        `<div class="ring"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="44"/>` +
-        `<circle class="value" cx="50" cy="50" r="44" stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC}"/></svg><b></b></div>`;
-      $("b", card).textContent = `${skill.level}%`;
-      card.append(el("h3", { text: skill.name }));
-      grid.append(card);
-      // Animate the ring on the next frame so the transition runs.
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        $(".value", card).style.strokeDashoffset = CIRC * (1 - skill.level / 100);
-      }));
-    });
+    grid.replaceChildren(...SKILLS[group].map((skill, i) =>
+      el("div", { class: "skill-card", style: `animation-delay:${i * 60}ms` }, [
+        el("span", { class: "skill-icon", "aria-hidden": "true", text: initials(skill.name) }),
+        el("h3", { text: skill.name }),
+        el("p", { text: skill.note }),
+      ])));
   }
 
-  Object.keys(SKILLS).forEach((group, i) => {
+  groups.forEach((group, i) => {
     const tab = el("button", { class: "tab", role: "tab", type: "button", text: group, "aria-selected": String(i === 0) });
     tab.dataset.group = group;
     tab.addEventListener("click", () => show(group));
     tabs.append(tab);
   });
 
-  // Start the rings when the section scrolls into view.
+  // Animate the first group in when the section scrolls into view.
   new IntersectionObserver(([entry], obs) => {
-    if (entry.isIntersecting) { show(Object.keys(SKILLS)[0]); obs.disconnect(); }
+    if (entry.isIntersecting) { show(groups[0]); obs.disconnect(); }
   }, { threshold: 0.2 }).observe(grid);
 }
 
@@ -560,58 +566,55 @@ function initModal() {
   });
 }
 
-/* ---------------------- GITHUB REPOS ---------------------- */
+/* ---------------------- FEATURED GITHUB REPOS ---------------------- */
+
+function repoCard(featured, live) {
+  const url = live?.html_url || `https://github.com/${GITHUB_USERNAME}/${featured.name}`;
+  const description = featured.description || live?.description || "No description provided.";
+  const meta = [];
+  if (live) {
+    if (live.language) meta.push(el("span", { class: "repo-lang", text: live.language }));
+    meta.push(el("span", { text: `★ ${live.stargazers_count}` }));
+    if (live.forks_count) meta.push(el("span", { text: `⑂ ${live.forks_count}` }));
+    const updated = new Date(live.pushed_at || live.updated_at).toLocaleDateString("en-IN", { month: "short", year: "numeric" });
+    meta.push(el("span", { text: `Updated ${updated}` }));
+  } else {
+    meta.push(el("span", { text: "View on GitHub →" }));
+  }
+
+  return el("a", { class: "repo-card reveal", href: url, target: "_blank", rel: "noopener" }, [
+    el("div", { class: "repo-head" }, [svgIcon(REPO_ICON), el("span", { class: "repo-badge", text: "Featured" })]),
+    el("h3", { text: live?.name || featured.name }),
+    el("p", { text: description }),
+    el("div", { class: "repo-meta" }, meta),
+  ]);
+}
 
 async function loadGithubRepos() {
   const grid = $("#reposGrid");
-
-  const message = (html) => {
-    const box = el("div", { class: "repos-message" });
-    box.innerHTML = html; // static text only, never API data
-    grid.replaceChildren(box);
-  };
-
-  if (!GITHUB_USERNAME) {
-    message('Add your GitHub username to <code>GITHUB_USERNAME</code> in <code>assets/js/main.js</code> to show your latest repositories here.');
-    return;
-  }
+  if (!FEATURED_REPOS.length) { grid.closest("section").hidden = true; return; }
 
   // Loading skeletons
-  grid.replaceChildren(...Array.from({ length: 3 }, () =>
+  grid.replaceChildren(...FEATURED_REPOS.map(() =>
     el("div", { class: "repo-card skeleton" }, [
       el("div", { class: "sk-line", style: "width:60%" }),
       el("div", { class: "sk-line", style: "width:90%" }),
       el("div", { class: "sk-line", style: "width:75%" }),
     ])));
 
+  // One request for all public repos, then keep only the featured ones (in FEATURED_REPOS order).
+  let liveByName = new Map();
   try {
-    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(GITHUB_USERNAME)}/repos?sort=updated&per_page=6`);
-    if (res.status === 403) throw new Error("rate");
-    if (!res.ok) throw new Error("fail");
-    const repos = (await res.json()).filter((r) => !r.fork);
-
-    if (!repos.length) { message("No public repositories yet — check back soon!"); return; }
-
-    grid.replaceChildren(...repos.map((repo) => {
-      const updated = new Date(repo.updated_at).toLocaleDateString(undefined, { month: "short", year: "numeric" });
-      const card = el("a", { class: "repo-card reveal", href: repo.html_url, target: "_blank", rel: "noopener" }, [
-        el("h3", { text: repo.name }),
-        el("p", { text: repo.description || "No description provided." }),
-        el("div", { class: "repo-meta" }, [
-          repo.language ? el("span", { class: "repo-lang", text: repo.language }) : null,
-          el("span", { text: `★ ${repo.stargazers_count}` }),
-          el("span", { text: `Updated ${updated}` }),
-        ]),
-      ]);
-      return card;
-    }));
-    observeReveals(grid);
+    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(GITHUB_USERNAME)}/repos?per_page=100`);
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    liveByName = new Map((await res.json()).map((repo) => [repo.name.toLowerCase(), repo]));
   } catch (err) {
-    const profile = `https://github.com/${encodeURIComponent(GITHUB_USERNAME)}`;
-    message(err.message === "rate"
-      ? `GitHub's rate limit was reached. <a href="${profile}" target="_blank" rel="noopener"><u>View the profile on GitHub →</u></a>`
-      : `Couldn't load repositories right now. <a href="${profile}" target="_blank" rel="noopener"><u>View the profile on GitHub →</u></a>`);
+    // Offline or rate-limited: show the featured cards without live stats.
+    console.warn("Featured repos: showing without live stats.", err);
   }
+
+  grid.replaceChildren(...FEATURED_REPOS.map((f) => repoCard(f, liveByName.get(f.name.toLowerCase()))));
+  observeReveals(grid);
 }
 
 /* ---------------------- TIMELINE FILL ---------------------- */
@@ -630,43 +633,66 @@ function initTimeline() {
 
 /* ---------------------- CERTIFICATES + LIGHTBOX ---------------------- */
 
-function initLightbox() {
+function initCertificates() {
   const grid = $("#certsGrid");
   const box = $("#lightbox");
   const img = $("#lbImg");
   const caption = $("#lbCaption");
+  const withImages = CERTIFICATES.filter((c) => c.image);
   let current = 0;
   let opener = null;
 
+  // About-section stat follows the list automatically.
+  const count = $("#certCount");
+  if (count) count.dataset.target = CERTIFICATES.filter((c) => /completed/i.test(c.status)).length;
+
+  // The image URL is only put into the page here, after a visitor clicks.
   const show = (i) => {
-    current = (i + CERTIFICATES.length) % CERTIFICATES.length;
-    const cert = CERTIFICATES[current];
+    current = (i + withImages.length) % withImages.length;
+    const cert = withImages[current];
     img.src = cert.image;
-    img.alt = cert.title;
-    caption.textContent = `${cert.title} — ${cert.issuer} (${current + 1}/${CERTIFICATES.length})`;
-    // restart the entrance animation
-    img.style.animation = "none"; void img.offsetWidth; img.style.animation = "";
+    img.alt = `${cert.title} certificate — ${cert.issuer}`;
+    caption.textContent = `${cert.title} — ${cert.issuer} (${current + 1}/${withImages.length})`;
+    img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; // restart entrance animation
   };
-  const open = (i, from) => {
+  const open = (cert, from) => {
     opener = from;
-    show(i);
+    show(withImages.indexOf(cert));
+    $("#lbPrev").hidden = $("#lbNext").hidden = withImages.length < 2;
     box.hidden = false;
     document.body.classList.add("locked");
     $("#lbClose").focus();
   };
   const close = () => {
     box.hidden = true;
+    img.removeAttribute("src");
     document.body.classList.remove("locked");
     opener?.focus();
   };
 
-  CERTIFICATES.forEach((cert, i) => {
-    const card = el("button", { class: "cert-card reveal", type: "button", "aria-label": `View certificate: ${cert.title}` }, [
-      el("img", { src: cert.image, alt: "", loading: "lazy" }),
+  CERTIFICATES.forEach((cert) => {
+    const inProgress = /progress/i.test(cert.status);
+    const actions = el("div", { class: "cert-actions" });
+
+    if (cert.image) {
+      const view = el("button", { class: "cert-btn", type: "button", text: "View certificate", "aria-label": `View certificate: ${cert.title}` });
+      view.addEventListener("click", () => open(cert, view));
+      actions.append(view);
+    }
+    if (cert.url) {
+      actions.append(el("a", {
+        class: "cert-link", href: cert.url, target: "_blank", rel: "noopener",
+        text: cert.image ? "Verify ↗" : "View certificate ↗",
+        "aria-label": `${cert.image ? "Verify" : "View"} ${cert.title} on the issuer's site (opens in a new tab)`,
+      }));
+    }
+
+    grid.append(el("div", { class: "cert-card reveal" }, [
+      el("span", { class: "cert-mark", "aria-hidden": "true", text: cert.issuer[0] }),
+      el("span", { class: `cert-status${inProgress ? " progress" : ""}`, text: cert.status }),
       el("div", { class: "cert-info" }, [el("h3", { text: cert.title }), el("span", { class: "mono", text: cert.issuer })]),
-    ]);
-    card.addEventListener("click", () => open(i, card));
-    grid.append(card);
+      actions.childElementCount ? actions : null,
+    ]));
   });
 
   $("#lbClose").addEventListener("click", close);
@@ -675,62 +701,157 @@ function initLightbox() {
   box.addEventListener("click", (e) => { if (e.target === box) close(); });
   box.addEventListener("keydown", (e) => {
     if (e.key === "Escape") close();
-    if (e.key === "ArrowLeft") show(current - 1);
-    if (e.key === "ArrowRight") show(current + 1);
+    if (withImages.length > 1 && e.key === "ArrowLeft") show(current - 1);
+    if (withImages.length > 1 && e.key === "ArrowRight") show(current + 1);
     trapFocus(box, e);
   });
 }
 
-/* ---------------------- TESTIMONIALS SLIDER ---------------------- */
+/* ---------------------- EMAIL (assembled at runtime) ---------------------- */
 
-function initTestimonials() {
-  const slider = $("#slider");
-  const track = $("#sliderTrack");
-  const dots = $("#sliderDots");
-  let index = 0;
-  let timer;
+const getEmail = () => EMAIL_PARTS.join(String.fromCharCode(64));
 
-  TESTIMONIALS.forEach((t, i) => {
-    const initials = t.name.split(" ").map((w) => w[0]).join("").slice(0, 2);
-    track.append(el("figure", { class: "slide", "aria-roledescription": "slide", "aria-label": `${i + 1} of ${TESTIMONIALS.length}` }, [
-      el("blockquote", { text: t.quote }),
-      el("figcaption", { class: "slide-author" }, [
-        el("span", { class: "slide-avatar", text: initials }),
-        el("div", {}, [el("strong", { text: t.name }), el("span", { text: t.role })]),
-      ]),
-    ]));
-    const dot = el("button", { type: "button", "aria-label": `Show testimonial ${i + 1}` });
-    dot.addEventListener("click", () => { go(i); restart(); });
-    dots.append(dot);
-  });
+function initEmail() {
+  const email = getEmail();
+  $$("[data-email]").forEach((a) => a.setAttribute("href", `mailto:${email}`));
+  $$("[data-email-text]").forEach((node) => (node.textContent = email));
+}
 
-  function go(i) {
-    index = (i + TESTIMONIALS.length) % TESTIMONIALS.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    $$("button", dots).forEach((d, n) => d.setAttribute("aria-current", String(n === index)));
+/* ---------------------- PROFILE PHOTO & IMAGE DETERRENTS ---------------------- */
+
+function initPhoto() {
+  if (!PROFILE_PHOTO) return;
+  $(".photo-placeholder")?.replaceWith(el("img", { src: PROFILE_PHOTO, alt: "Sahil Gulab Chavan", draggable: "false" }));
+}
+
+// Cosmetic only: stops casual right-click "Save image" and drag-to-desktop.
+function initImageGuards() {
+  const guarded = "img, .photo-frame, .project-thumb, .lightbox";
+  document.addEventListener("contextmenu", (e) => { if (e.target.closest(guarded)) e.preventDefault(); });
+  document.addEventListener("dragstart", (e) => { if (e.target.closest(guarded)) e.preventDefault(); });
+}
+
+/* ---------------------- RESUME GATE (human-only download) ---------------------- */
+
+function initResumeGate() {
+  const gate = $("#resumeGate");
+  const holdBtn = $("#holdBtn");
+  const fill = $("#holdFill");
+  const label = $("#holdLabel");
+  const honeypot = $("#gateHp");
+  const fallback = $("#gateFallback");
+  const pageStart = performance.now();
+  const HOLD_MS = 1200;
+  const IDLE_LABEL = "Press & hold to download";
+  let opener = null;
+  let holdStart = 0;
+  let trusted = false;
+  let frame = 0;
+  let busy = false;
+
+  // Built at runtime so the file path never appears in the page source.
+  const resumePath = () => ["assets", "resume", RESUME_KEY].join("/") + "." + "pdf";
+
+  const resetHold = () => {
+    cancelAnimationFrame(frame);
+    holdStart = 0;
+    fill.style.transform = "scaleX(0)";
+    holdBtn.classList.remove("holding");
+  };
+
+  const openGate = (from) => {
+    opener = from;
+    resetHold();
+    busy = false;
+    label.textContent = IDLE_LABEL;
+    holdBtn.disabled = false;
+    fallback.hidden = true;
+    gate.hidden = false;
+    document.body.classList.add("locked");
+    holdBtn.focus();
+  };
+  const closeGate = () => {
+    if (gate.hidden) return;
+    resetHold();
+    gate.hidden = true;
+    document.body.classList.remove("locked");
+    opener?.focus();
+  };
+
+  async function download() {
+    busy = true;
+    holdBtn.disabled = true;
+    label.textContent = "Preparing download…";
+
+    // Bot signals: synthetic events, interacting instantly after load, or a filled honeypot.
+    const tooFast = performance.now() - pageStart < 2000;
+    if (!trusted || tooFast || honeypot.value) {
+      busy = false;
+      holdBtn.disabled = false;
+      label.textContent = "Please try again";
+      return;
+    }
+
+    try {
+      const res = await fetch(resumePath(), { cache: "no-store" });
+      const type = res.headers.get("content-type") || "";
+      if (!res.ok || type.includes("text/html")) throw new Error(`Resume not found (${res.status})`);
+      const url = URL.createObjectURL(await res.blob());
+      const a = el("a", { href: url, download: `${RESUME_DOWNLOAD_NAME}.pdf` });
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      toast("Resume downloaded — thanks for your interest!");
+      closeGate();
+    } catch (err) {
+      console.warn(err);
+      label.textContent = IDLE_LABEL;
+      holdBtn.disabled = false;
+      fallback.hidden = false;
+      toast("Resume isn't available right now — reach me on LinkedIn or email.", true);
+    } finally {
+      busy = false;
+    }
   }
-  const stop = () => clearInterval(timer);
-  const restart = () => { stop(); if (!reduceMotion) timer = setInterval(() => go(index + 1), 6000); };
 
-  $("#slidePrev").addEventListener("click", () => { go(index - 1); restart(); });
-  $("#slideNext").addEventListener("click", () => { go(index + 1); restart(); });
-  slider.addEventListener("mouseenter", stop);
-  slider.addEventListener("mouseleave", restart);
-  slider.addEventListener("focusin", stop);
+  const step = (now) => {
+    const progress = Math.min((now - holdStart) / HOLD_MS, 1);
+    fill.style.transform = `scaleX(${progress})`;
+    if (progress < 1) frame = requestAnimationFrame(step);
+    else { holdBtn.classList.remove("holding"); holdStart = 0; download(); }
+  };
+  const startHold = (e) => {
+    if (busy || holdStart) return;
+    trusted = e.isTrusted;
+    holdStart = performance.now();
+    holdBtn.classList.add("holding");
+    label.textContent = "Keep holding…";
+    frame = requestAnimationFrame(step);
+  };
+  const stopHold = () => {
+    if (!holdStart) return;
+    resetHold();
+    label.textContent = IDLE_LABEL;
+  };
 
-  // Swipe on touch screens
-  let startX = null;
-  track.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
-  track.addEventListener("touchend", (e) => {
-    if (startX === null) return;
-    const dx = e.changedTouches[0].clientX - startX;
-    if (Math.abs(dx) > 50) go(index + (dx < 0 ? 1 : -1));
-    startX = null;
-    restart();
+  holdBtn.addEventListener("pointerdown", (e) => { holdBtn.setPointerCapture?.(e.pointerId); startHold(e); });
+  holdBtn.addEventListener("pointerup", stopHold);
+  holdBtn.addEventListener("pointercancel", stopHold);
+  holdBtn.addEventListener("lostpointercapture", stopHold);
+  holdBtn.addEventListener("keydown", (e) => {
+    if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); startHold(e); }
   });
+  holdBtn.addEventListener("keyup", (e) => { if (e.key === " " || e.key === "Enter") stopHold(); });
+  holdBtn.addEventListener("contextmenu", (e) => e.preventDefault()); // long-press menu on phones
 
-  go(0);
-  restart();
+  $$("[data-resume]").forEach((btn) => btn.addEventListener("click", (e) => { if (e.isTrusted) openGate(btn); }));
+  $$("[data-gate-close]", gate).forEach((n) => n.addEventListener("click", closeGate));
+  $("#gateForm").addEventListener("submit", (e) => e.preventDefault());
+  gate.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeGate();
+    trapFocus(gate, e);
+  });
 }
 
 /* ---------------------- CONTACT FORM ---------------------- */
@@ -772,7 +893,7 @@ function initContact() {
     const email = fields.email.input.value.trim();
     const subject = $("#subject").value.trim() || `Portfolio enquiry from ${name}`;
     const body = `${fields.message.input.value.trim()}\n\n— ${name} (${email})`;
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${getEmail()}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     toast("Opening your email app… thanks for reaching out!");
     form.reset();
@@ -781,10 +902,10 @@ function initContact() {
 
   $("#copyEmail").addEventListener("click", async () => {
     try {
-      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      await navigator.clipboard.writeText(getEmail());
       toast("Email address copied to clipboard.");
     } catch {
-      toast(`Copy failed — the email is ${CONTACT_EMAIL}`, true);
+      toast(`Copy failed — the email is ${getEmail()}`, true);
     }
   });
 }
@@ -799,14 +920,23 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroCanvas();
   initTyping();
   initMarquee();
+  initEmail();
+  initPhoto();
+  initImageGuards();
   initSkills();
   renderProjects();
   initModal();
   loadGithubRepos();
   initTimeline();
-  initLightbox();
-  initTestimonials();
+  initCertificates();
+  initResumeGate();
   initContact();
   observeReveals();
   $("#year").textContent = new Date().getFullYear();
+
+  // Sections are filled in by JS, so re-jump to a #section link once they exist.
+  if (location.hash.length > 1) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: "instant" }));
+  }
 });
