@@ -40,7 +40,7 @@ const RESUME_DOWNLOAD_NAME = "Sahil_Chavan_Resume";
 // Profile photo, e.g. "assets/images/profile.jpg". Leave "" to show the SC monogram.
 const PROFILE_PHOTO = "";
 
-const ROLES = ["Data Scientist Intern", "AI & ML Engineer", "Python Developer", "Data Analyst"];
+const ROLES = ["Intrested Roles", "Python Developer", "Data Analyst", "Buisness analyst","Data Scientist Intern", "AI & ML Engineer"];
 
 const MARQUEE_ITEMS = ["Python", "Pandas", "Scikit-learn", "EDA", "Feature Engineering", "OpenCV", "Streamlit", "SQL", "Firebase", "NumPy", "Jupyter", "Git"];
 
