@@ -141,7 +141,7 @@ const CERTIFICATES = [
   },
   { title: "Pandas", issuer: "Kaggle", status: "Completed", url: "https://www.kaggle.com/learn/certification/sahiiilc/pandas", image: "assets/images/certs/pandas.jpg" },
   { title: "Python", issuer: "Kaggle", status: "Completed", url: "https://www.kaggle.com/learn/certification/sahiiilc/python", image: "assets/images/certs/python.jpg" },
-  { title: "Python Bootcamp", issuer: "Udemy", status: "Completed", url: "", image: "" },
+  { title: "Python Bootcamp", issuer: "Udemy", status: "Completed", url: "https://www.udemy.com/certificate/UC-95f9af2d-ea99-4d3c-b37b-314889cc8b8b/", image: "assets/images/certs/Udemy cerf.jpg" },
 ];
 
 /* ---------------------- HELPERS ---------------------- */
